@@ -7,7 +7,6 @@ SOLUTIONS = 0
 
 t1 = time.time()
 
-
 def can_add_left_diagonal(perm, size):
     length = len(perm)
 
@@ -24,7 +23,6 @@ def can_add_left_diagonal(perm, size):
         return False
 
     return True
-
 
 def can_add_right_diagonal(perm, size):
     length = len(perm)
@@ -43,7 +41,6 @@ def can_add_right_diagonal(perm, size):
 
     return True
 
-
 def can_extend(diagonal, perm, size):
     if diagonal == LD and can_add_left_diagonal(perm, size):
         return True
@@ -52,16 +49,6 @@ def can_extend(diagonal, perm, size):
     if diagonal == EMPTY:
         return True
     return False
-
-
-def diagonals_count(perm):
-    diagonal_count = 0
-    for i in range(len(perm)):
-        if perm[i] != EMPTY:
-            diagonal_count += 1
-
-    return diagonal_count
-
 
 def pretty_print(perm, size):
     print(perm)
@@ -75,7 +62,6 @@ def pretty_print(perm, size):
         if (i + 1) % size == 0:
             print("")
     print("")
-
 
 def add_diagonal(perm, size, n, diagonal_count):
     if diagonal_count == n:
