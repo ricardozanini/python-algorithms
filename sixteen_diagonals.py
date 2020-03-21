@@ -6,6 +6,7 @@ RD = 2
 
 t1 = time.time()
 
+
 def can_add_left_diagonal(perm, size):
     length = len(perm)
 
@@ -30,7 +31,7 @@ def can_add_right_diagonal(perm, size):
     # up
     if 0 <= (length - (size + 1)) < length and perm[length - (size + 1)] == LD:
         return False
-    
+
     # up right
     if length % size > 0 and (0 <= (length - size) < length and perm[length - size] == RD):
         return False
@@ -75,8 +76,8 @@ def pretty_print(perm, size):
     print("")
 
 
-def add_diagonal(perm, size, n):
-    if len(perm) > n and diagonals_count(perm) == n and len(perm) == size * size:
+def add_diagonal(perm, size, n, diagonal_count):
+    if diagonal_count == n:
         print("Yes! Found it! N = %s in %s" % (n, time.time() - t1))
         pretty_print(perm, size)
         exit(0)
@@ -86,11 +87,16 @@ def add_diagonal(perm, size, n):
     for d in [LD, RD, EMPTY]:
         perm.append(d)
         if can_extend(d, perm, size):
-            add_diagonal(perm, size, n)
+            if d != EMPTY:
+                diagonal_count += 1
+            add_diagonal(perm, size, n, diagonal_count)
+
         perm.pop()
 
+
 def solve_puzzle(perm, size, n):
-    add_diagonal(perm, size, n)
+    add_diagonal(perm, size, n, diagonal_count=0)
     print("Sorry, I failed")
 
-solve_puzzle(perm=[], size=5, n=16)
+
+solve_puzzle(perm=[], size=2, n=4)
