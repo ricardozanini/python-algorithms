@@ -3,6 +3,7 @@ import time
 EMPTY = 0
 LD = 1
 RD = 2
+SOLUTIONS = 0
 
 t1 = time.time()
 
@@ -78,10 +79,14 @@ def pretty_print(perm, size):
 
 def add_diagonal(perm, size, n, diagonal_count):
     if diagonal_count == n:
-        print("Yes! Found it! N = %s in %s" % (n, time.time() - t1))
+        global SOLUTIONS
+        global t1
+        SOLUTIONS += 1
+        print("Yes! Found solution #%s! N = %s in %s" % (SOLUTIONS, n, time.time() - t1))
+        t1 = time.time()
         pretty_print(perm, size)
-        exit(0)
-    if len(perm) == size * size:
+        return
+    if len(perm) == size * size or (size * size) - len(perm) < n - diagonal_count:
         return
 
     for d in [LD, RD, EMPTY]:
@@ -90,13 +95,15 @@ def add_diagonal(perm, size, n, diagonal_count):
             if d != EMPTY:
                 diagonal_count += 1
             add_diagonal(perm, size, n, diagonal_count)
+            if d != EMPTY:
+                diagonal_count -= 1
 
         perm.pop()
 
 
 def solve_puzzle(perm, size, n):
     add_diagonal(perm, size, n, diagonal_count=0)
-    print("Sorry, I failed")
+    global SOLUTIONS
+    print("All possibles solutions found: %s" % SOLUTIONS)
 
-
-solve_puzzle(perm=[], size=2, n=4)
+solve_puzzle(perm=[], size=5, n=16)
