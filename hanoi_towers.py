@@ -57,7 +57,7 @@ def move_discs(n, moves=0, actual=0, last_move=0, towers=[]):
     return moves, last_move, towers
 
 
-def move_tower(n, moves=0, actual=0, towers=[]):
+def move_tower(n, moves=0, towers=[]):
     last_move = 0
     for i in range(len(towers)):
         if i > 0 and len(towers[i]) == n:
